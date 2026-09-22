@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add Trade"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/etAsset"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Asset name (e.g. bitcoin, ethereum)"
+            android:inputType="text" />
+
+        <Button
+            android:id="@+id/btnLivePrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Get Live Price" />
+
+        <TextView
+            android:id="@+id/tvLivePrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/teal" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Trade type"
+            android:textColor="@color/grey" />
+
+        <Spinner
+            android:id="@+id/spType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:id="@+id/etEntry"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Entry price"
+            android:inputType="numberDecimal" />
+
+        <EditText
+            android:id="@+id/etExit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Exit price"
+            android:inputType="numberDecimal" />
+
+        <EditText
+            android:id="@+id/etQuantity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Quantity"
+            android:inputType="numberDecimal" />
+
+        <EditText
+            android:id="@+id/etDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Date (yyyy-MM-dd)"
+            android:inputType="text" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Trading strategy"
+            android:textColor="@color/grey" />
+
+        <Spinner
+            android:id="@+id/spStrategy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="How did you feel?"
+            android:textColor="@color/grey" />
+
+        <Spinner
+            android:id="@+id/spEmotion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:id="@+id/etNotes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Notes - why did you take this trade?"
+            android:inputType="textMultiLine"
+            android:minLines="3" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Profit/loss is calculated automatically when you save."
+            android:textColor="@color/grey"
+            android:textSize="12sp" />
+
+        <Button
+            android:id="@+id/btnSaveTrade"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Save Trade" />
+    </LinearLayout>
+</ScrollView>
