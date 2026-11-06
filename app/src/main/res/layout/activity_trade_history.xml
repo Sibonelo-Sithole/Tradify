@@ -8,14 +8,23 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Trade History"
+        android:text="@string/trade_history"
         android:textSize="22sp"
         android:textStyle="bold" />
 
     <TextView
+        android:id="@+id/tvOffline"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/offline_banner"
+        android:textColor="@color/red"
+        android:textSize="13sp"
+        android:visibility="gone" />
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Filter (long press a trade for details)"
+        android:text="@string/filter_hint"
         android:textColor="@color/grey" />
 
     <Spinner
@@ -28,7 +37,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="24dp"
-        android:text="No trades to show"
+        android:text="@string/no_trades"
         android:textAlignment="center"
         android:textColor="@color/grey"
         android:visibility="gone" />

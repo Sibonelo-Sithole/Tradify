@@ -10,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
-        android:text="Create Account"
+        android:text="@string/create_account"
         android:textColor="@color/teal"
         android:textSize="26sp"
         android:textStyle="bold" />
@@ -19,21 +19,21 @@
         android:id="@+id/etRegEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Email"
+        android:hint="@string/email"
         android:inputType="textEmailAddress" />
 
     <EditText
         android:id="@+id/etRegPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Password (min 6 characters)"
+        android:hint="@string/password_hint"
         android:inputType="textPassword" />
 
     <EditText
         android:id="@+id/etRegConfirm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Confirm password"
+        android:hint="@string/confirm_password"
         android:inputType="textPassword" />
 
     <Button
@@ -41,5 +41,5 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Register" />
+        android:text="@string/register" />
 </LinearLayout>

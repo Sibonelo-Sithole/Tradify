@@ -12,7 +12,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Add Trade"
+            android:text="@string/add_trade"
             android:textSize="22sp"
             android:textStyle="bold" />
 
@@ -20,14 +20,14 @@
             android:id="@+id/etAsset"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Asset name (e.g. bitcoin, ethereum)"
+            android:hint="@string/asset_hint"
             android:inputType="text" />
 
         <Button
             android:id="@+id/btnLivePrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Get Live Price" />
+            android:text="@string/get_live_price" />
 
         <TextView
             android:id="@+id/tvLivePrice"
@@ -39,7 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Trade type"
+            android:text="@string/trade_type"
             android:textColor="@color/grey" />
 
         <Spinner
@@ -51,35 +51,35 @@
             android:id="@+id/etEntry"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Entry price"
+            android:hint="@string/entry_price"
             android:inputType="numberDecimal" />
 
         <EditText
             android:id="@+id/etExit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Exit price"
+            android:hint="@string/exit_price"
             android:inputType="numberDecimal" />
 
         <EditText
             android:id="@+id/etQuantity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Quantity"
+            android:hint="@string/quantity"
             android:inputType="numberDecimal" />
 
         <EditText
             android:id="@+id/etDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Date (yyyy-MM-dd)"
+            android:hint="@string/date_hint"
             android:inputType="text" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Trading strategy"
+            android:text="@string/strategy_label"
             android:textColor="@color/grey" />
 
         <Spinner
@@ -91,7 +91,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="How did you feel?"
+            android:text="@string/emotion_label"
             android:textColor="@color/grey" />
 
         <Spinner
@@ -103,7 +103,7 @@
             android:id="@+id/etNotes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Notes - why did you take this trade?"
+            android:hint="@string/notes_hint"
             android:inputType="textMultiLine"
             android:minLines="3" />
 
@@ -111,7 +111,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Profit/loss is calculated automatically when you save."
+            android:text="@string/pl_auto"
             android:textColor="@color/grey"
             android:textSize="12sp" />
 
@@ -120,6 +120,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Save Trade" />
+            android:text="@string/save_trade" />
     </LinearLayout>
 </ScrollView>

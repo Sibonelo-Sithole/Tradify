@@ -13,9 +13,18 @@
             android:id="@+id/tvWelcome"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Welcome"
             android:textSize="18sp"
             android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvOffline"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/offline_banner"
+            android:textColor="@color/red"
+            android:textSize="13sp"
+            android:visibility="gone" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -29,7 +38,6 @@
                 android:id="@+id/tvTotalTrades"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Total trades: 0"
                 android:textSize="16sp" />
 
             <TextView
@@ -37,7 +45,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="Win rate: 0%"
                 android:textColor="@color/teal"
                 android:textSize="16sp" />
 
@@ -46,7 +53,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="Wins: 0   Losses: 0"
                 android:textSize="16sp" />
 
             <TextView
@@ -54,7 +60,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="Total profit/loss: 0.00"
                 android:textSize="16sp" />
 
             <TextView
@@ -62,7 +67,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="Avg profit: 0.00   Avg loss: 0.00"
                 android:textSize="14sp" />
 
             <TextView
@@ -70,7 +74,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="Achievement points: 0"
                 android:textColor="#FBBF24"
                 android:textSize="16sp" />
         </LinearLayout>
@@ -80,25 +83,31 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Add Trade" />
+            android:text="@string/add_trade" />
 
         <Button
             android:id="@+id/btnHistory"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Trade History" />
+            android:text="@string/trade_history" />
 
         <Button
             android:id="@+id/btnJournal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Journal" />
+            android:text="@string/journal" />
 
         <Button
             android:id="@+id/btnAchievements"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Achievements" />
+            android:text="@string/achievements" />
+
+        <Button
+            android:id="@+id/btnSettings"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/settings" />
 
         <Button
             android:id="@+id/btnLogout"
@@ -106,6 +115,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:backgroundTint="@color/red"
-            android:text="Log Out" />
+            android:text="@string/log_out" />
     </LinearLayout>
 </ScrollView>

@@ -6,10 +6,16 @@
     android:orientation="vertical"
     android:padding="24dp">
 
+    <ImageView
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/ic_launcher_foreground" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Tradify"
+        android:text="@string/app_name"
         android:textColor="@color/teal"
         android:textSize="32sp"
         android:textStyle="bold" />
@@ -18,21 +24,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
-        android:text="Track. Learn. Improve."
+        android:text="@string/tagline"
         android:textColor="@color/grey" />
 
     <EditText
         android:id="@+id/etEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Email"
+        android:hint="@string/email"
         android:inputType="textEmailAddress" />
 
     <EditText
         android:id="@+id/etPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Password"
+        android:hint="@string/password"
         android:inputType="textPassword" />
 
     <Button
@@ -40,7 +46,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Log In" />
+        android:text="@string/login" />
+
+    <Button
+        android:id="@+id/btnGoogleSignIn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/google_sign_in" />
 
     <TextView
         android:id="@+id/tvGoRegister"
@@ -48,6 +61,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:padding="8dp"
-        android:text="No account? Register here"
+        android:text="@string/no_account"
         android:textColor="@color/teal" />
 </LinearLayout>
