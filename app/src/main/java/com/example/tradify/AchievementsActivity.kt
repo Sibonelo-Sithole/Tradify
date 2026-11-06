@@ -13,30 +13,41 @@ class AchievementsActivity : AppCompatActivity() {
     private val auth = FirebaseAuth.getInstance()
     private val db = FirebaseFirestore.getInstance()
 
+    private lateinit var tvTotalPoints: TextView
+    private lateinit var listBadges: ListView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_achievements)
 
-        val tvTotalPoints = findViewById<TextView>(R.id.tvTotalPoints)
-        val listBadges = findViewById<ListView>(R.id.listBadges)
+        tvTotalPoints = findViewById(R.id.tvTotalPoints)
+        listBadges = findViewById(R.id.listBadges)
 
         val uid = auth.currentUser?.uid ?: return
-        val userDoc = db.collection("users").document(uid)
+        val tradeCount = LocalDb(this).getTrades(uid).size
 
-        userDoc.collection("trades").get().addOnSuccessListener { tradeResult ->
-            userDoc.collection("journal").get().addOnSuccessListener { journalResult ->
-                val tradeCount = tradeResult.size()
-                val journalCount = journalResult.size()
+        // Show something straight away (works offline), then update from Firestore
+        show(tradeCount, Prefs.journalCount(this, uid))
 
-                val points = AchievementHelper.calculatePoints(tradeCount, journalCount)
-                tvTotalPoints.text = "$points points"
-
-                val badges = AchievementHelper.getBadges(tradeCount, journalCount)
-                val lines = badges.map {
-                    if (it.unlocked) "[Unlocked]  " + it.name else "[Locked]  " + it.name
+        if (SyncManager.isOnline(this)) {
+            db.collection("users").document(uid).collection("journal").get()
+                .addOnSuccessListener { journalResult ->
+                    Prefs.setJournalCount(this, uid, journalResult.size())
+                    show(tradeCount, journalResult.size())
                 }
-                listBadges.adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, lines)
-            }
         }
+    }
+
+    private fun show(tradeCount: Int, journalCount: Int) {
+        val points = AchievementHelper.calculatePoints(tradeCount, journalCount)
+        tvTotalPoints.text = getString(R.string.total_points, points)
+
+        val names = resources.getStringArray(R.array.badge_names)
+        val badges = AchievementHelper.getBadges(tradeCount, journalCount)
+        val lines = badges.mapIndexed { index, badge ->
+            val status = if (badge.unlocked) getString(R.string.unlocked) else getString(R.string.locked)
+            "[" + status + "]  " + names[index]
+        }
+        listBadges.adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, lines)
     }
 }

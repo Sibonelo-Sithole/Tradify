@@ -12,7 +12,20 @@
           "package_name": "com.example.tradify"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "973958242170-sn091i2mjvpi4lq8868aloeri4u1p5al.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.tradify",
+            "certificate_hash": "aeecef761840a236bd24c0c4649c3b438290e5d9"
+          }
+        },
+        {
+          "client_id": "973958242170-gktd3jttr4qhosevue9053qlr815i4ia.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyBHVyGdPKV7HL03PMQYy4CxLJQqOLPeh3E"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "973958242170-gktd3jttr4qhosevue9053qlr815i4ia.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

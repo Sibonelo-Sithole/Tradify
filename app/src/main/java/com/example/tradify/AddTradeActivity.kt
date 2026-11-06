@@ -9,18 +9,17 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import java.util.UUID
 
 class AddTradeActivity : AppCompatActivity() {
 
     private val auth = FirebaseAuth.getInstance()
-    private val db = FirebaseFirestore.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,43 +38,50 @@ class AddTradeActivity : AppCompatActivity() {
         val btnLivePrice = findViewById<Button>(R.id.btnLivePrice)
         val btnSave = findViewById<Button>(R.id.btnSaveTrade)
 
-        val types = listOf("Long", "Short")
-        val strategies = listOf("Breakout", "Trend Following", "Scalping", "Swing", "Other")
-        val emotions = listOf("Confident", "Nervous", "Excited", "Frustrated", "Neutral")
-        spType.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, types)
-        spStrategy.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, strategies)
-        spEmotion.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, emotions)
+        // What is SAVED stays in English, what the user SEES is translated
+        val typesEn = listOf("Long", "Short")
+        val strategiesEn = listOf("Breakout", "Trend Following", "Scalping", "Swing", "Other")
+        val emotionsEn = listOf("Confident", "Nervous", "Excited", "Frustrated", "Neutral")
 
-        val today = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
-        etDate.setText(today)
+        val layout = android.R.layout.simple_spinner_dropdown_item
+        spType.adapter = ArrayAdapter(this, layout, resources.getStringArray(R.array.types_array))
+        spStrategy.adapter = ArrayAdapter(this, layout, resources.getStringArray(R.array.strategies_array))
+        spEmotion.adapter = ArrayAdapter(this, layout, resources.getStringArray(R.array.emotions_array))
 
-        // REST API call using Retrofit
+        // Default strategy comes from Settings
+        spStrategy.setSelection(Prefs.defaultStrategy(this))
+
+        etDate.setText(SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date()))
+
+        // REST API call using Retrofit (currency comes from Settings)
         btnLivePrice.setOnClickListener {
             val coin = etAsset.text.toString().trim().lowercase()
             if (coin.isEmpty()) {
-                Toast.makeText(this, "Type a coin name first (e.g. bitcoin)", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.type_coin_first), Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            tvLivePrice.text = "Loading..."
-            RetrofitClient.priceApi.getPrice(coin, "usd").enqueue(object : Callback<Map<String, Map<String, Double>>> {
-                override fun onResponse(
-                    call: Call<Map<String, Map<String, Double>>>,
-                    response: Response<Map<String, Map<String, Double>>>
-                ) {
-                    val price = response.body()?.get(coin)?.get("usd")
-                    if (price != null) {
-                        tvLivePrice.text = "Live price: $$price"
-                        etEntry.setText(price.toString())
-                    } else {
-                        tvLivePrice.text = "Coin not found"
+            val currency = Prefs.currency(this)
+            tvLivePrice.text = getString(R.string.loading)
+            RetrofitClient.priceApi.getPrice(coin, currency)
+                .enqueue(object : Callback<Map<String, Map<String, Double>>> {
+                    override fun onResponse(
+                        call: Call<Map<String, Map<String, Double>>>,
+                        response: Response<Map<String, Map<String, Double>>>
+                    ) {
+                        val price = response.body()?.get(coin)?.get(currency)
+                        if (price != null) {
+                            tvLivePrice.text = getString(R.string.live_price, price.toString(), currency.uppercase())
+                            etEntry.setText(price.toString())
+                        } else {
+                            tvLivePrice.text = getString(R.string.coin_not_found)
+                        }
                     }
-                }
 
-                override fun onFailure(call: Call<Map<String, Map<String, Double>>>, t: Throwable) {
-                    tvLivePrice.text = "Could not get price (check internet)"
-                }
-            })
+                    override fun onFailure(call: Call<Map<String, Map<String, Double>>>, t: Throwable) {
+                        tvLivePrice.text = getString(R.string.price_error)
+                    }
+                })
         }
 
         btnSave.setOnClickListener {
@@ -90,35 +96,39 @@ class AddTradeActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            val type = spType.selectedItem.toString()
+            val uid = auth.currentUser?.uid ?: return@setOnClickListener
+            val type = typesEn[spType.selectedItemPosition]
             val entry = entryText.toDouble()
             val exit = exitText.toDouble()
             val quantity = quantityText.toDouble()
             val profit = ProfitCalculator.calculateProfit(type, entry, exit, quantity)
 
             val trade = Trade(
+                id = UUID.randomUUID().toString(),
                 asset = asset,
                 type = type,
                 entryPrice = entry,
                 exitPrice = exit,
                 quantity = quantity,
                 date = etDate.text.toString(),
-                strategy = spStrategy.selectedItem.toString(),
+                strategy = strategiesEn[spStrategy.selectedItemPosition],
                 profitLoss = profit,
-                emotion = spEmotion.selectedItem.toString(),
-                notes = etNotes.text.toString()
+                emotion = emotionsEn[spEmotion.selectedItemPosition],
+                notes = etNotes.text.toString(),
+                synced = false
             )
 
-            val uid = auth.currentUser?.uid ?: return@setOnClickListener
-            db.collection("users").document(uid).collection("trades")
-                .add(trade)
-                .addOnSuccessListener {
-                    Toast.makeText(this, "Trade saved! P/L: " + String.format("%.2f", profit), Toast.LENGTH_LONG).show()
-                    finish()
-                }
-                .addOnFailureListener {
-                    Toast.makeText(this, "Could not save trade", Toast.LENGTH_SHORT).show()
-                }
+            // 1. Always save on the phone first (works offline)
+            LocalDb(this).insertPending(uid, trade)
+
+            // 2. If online, upload straight away. If not, it uploads when internet returns.
+            if (SyncManager.isOnline(this)) {
+                SyncManager.syncNow(this)
+                Toast.makeText(this, getString(R.string.trade_saved, String.format("%.2f", profit)), Toast.LENGTH_LONG).show()
+            } else {
+                Toast.makeText(this, getString(R.string.trade_saved_offline), Toast.LENGTH_LONG).show()
+            }
+            finish()
         }
     }
 }

@@ -36,7 +36,7 @@ class JournalActivity : AppCompatActivity() {
             val content = etContent.text.toString().trim()
 
             if (title.isEmpty() || content.isEmpty()) {
-                Toast.makeText(this, "Please enter a title and some notes", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.journal_fill), Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
@@ -46,12 +46,10 @@ class JournalActivity : AppCompatActivity() {
             val uid = auth.currentUser?.uid ?: return@setOnClickListener
             db.collection("users").document(uid).collection("journal")
                 .add(entry)
-                .addOnSuccessListener {
-                    etTitle.setText("")
-                    etContent.setText("")
-                    Toast.makeText(this, "Journal entry saved", Toast.LENGTH_SHORT).show()
-                    loadEntries()
-                }
+                .addOnSuccessListener { loadEntries() }
+            etTitle.setText("")
+            etContent.setText("")
+            Toast.makeText(this, getString(R.string.journal_saved), Toast.LENGTH_SHORT).show()
         }
 
         loadEntries()
@@ -64,7 +62,6 @@ class JournalActivity : AppCompatActivity() {
             .addOnSuccessListener { result ->
                 val entries = result.documents.mapNotNull { it.toObject(JournalEntry::class.java) }
                     .sortedByDescending { it.date }
-
                 val lines = entries.map { it.date + " - " + it.title + "\n" + it.content }
                 listView.adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, lines)
             }

@@ -27,26 +27,27 @@ class RegisterActivity : AppCompatActivity() {
             val confirm = etConfirm.text.toString()
 
             if (email.isEmpty() || password.isEmpty()) {
-                Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.fill_all), Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
             if (password.length < 6) {
-                Toast.makeText(this, "Password must be at least 6 characters", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.pw_short), Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
             if (password != confirm) {
-                Toast.makeText(this, "Passwords do not match", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.pw_mismatch), Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
+            // Firebase hashes and stores the password securely (we never store it ourselves)
             auth.createUserWithEmailAndPassword(email, password)
                 .addOnSuccessListener {
-                    Toast.makeText(this, "Account created!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, getString(R.string.account_created), Toast.LENGTH_SHORT).show()
                     startActivity(Intent(this, DashboardActivity::class.java))
                     finishAffinity()
                 }
                 .addOnFailureListener { e ->
-                    Toast.makeText(this, "Could not register: " + e.message, Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, getString(R.string.register_failed, e.message ?: ""), Toast.LENGTH_LONG).show()
                 }
         }
     }

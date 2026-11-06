@@ -26,7 +26,13 @@ class TradeAdapter(
     override fun onBindViewHolder(holder: TradeViewHolder, position: Int) {
         val trade = trades[position]
         holder.tvAsset.text = trade.asset + " (" + trade.type + ")"
-        holder.tvDetails.text = trade.date + " | " + trade.strategy + " | " + trade.emotion
+
+        var details = trade.date + " | " + trade.strategy + " | " + trade.emotion
+        // Shows when a trade is saved on the phone but not uploaded yet
+        if (!trade.synced) {
+            details += " | " + holder.itemView.context.getString(R.string.pending_sync)
+        }
+        holder.tvDetails.text = details
         holder.tvProfit.text = String.format("%.2f", trade.profitLoss)
 
         if (trade.profitLoss >= 0) {
