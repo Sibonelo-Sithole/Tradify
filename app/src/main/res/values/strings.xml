@@ -1,3 +1,135 @@
 <resources>
-    <string name="app_name">Tradify</string>
+    <string name="app_name" translatable="false">Tradify</string>
+    <string name="tagline">Track. Learn. Improve.</string>
+
+    <!-- Login and register -->
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login">Log In</string>
+    <string name="google_sign_in">Sign in with Google</string>
+    <string name="no_account">No account? Register here</string>
+    <string name="fill_both">Please fill in both fields</string>
+    <string name="login_failed">Login failed: incorrect email or password</string>
+    <string name="google_cancelled">Google sign-in cancelled</string>
+    <string name="google_failed">Google sign-in failed: %1$s</string>
+    <string name="firebase_failed">Sign-in failed: %1$s</string>
+    <string name="google_read_error">Could not read Google account</string>
+    <string name="unexpected_signin">Unexpected sign-in type</string>
+    <string name="create_account">Create Account</string>
+    <string name="password_hint">Password (min 6 characters)</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="register">Register</string>
+    <string name="fill_all">Please fill in all fields</string>
+    <string name="pw_short">Password must be at least 6 characters</string>
+    <string name="pw_mismatch">Passwords do not match</string>
+    <string name="account_created">Account created!</string>
+    <string name="register_failed">Could not register: %1$s</string>
+
+    <!-- Dashboard -->
+    <string name="welcome">Welcome, %1$s</string>
+    <string name="total_trades">Total trades: %1$d</string>
+    <string name="win_rate">Win rate: %1$s%%</string>
+    <string name="wins_losses">Wins: %1$d   Losses: %2$d</string>
+    <string name="total_pl">Total profit/loss: %1$s</string>
+    <string name="avg_pl">Avg profit: %1$s   Avg loss: %2$s</string>
+    <string name="points">Achievement points: %1$d</string>
+    <string name="add_trade">Add Trade</string>
+    <string name="trade_history">Trade History</string>
+    <string name="journal">Journal</string>
+    <string name="achievements">Achievements</string>
+    <string name="settings">Settings</string>
+    <string name="log_out">Log Out</string>
+    <string name="offline_banner">You are offline. Changes are saved on your phone and will sync when you reconnect.</string>
+
+    <!-- Add trade -->
+    <string name="asset_hint">Asset name (e.g. bitcoin, ethereum)</string>
+    <string name="get_live_price">Get Live Price</string>
+    <string name="loading">Loading...</string>
+    <string name="live_price">Live price: %1$s %2$s</string>
+    <string name="coin_not_found">Coin not found</string>
+    <string name="price_error">Could not get price (check internet)</string>
+    <string name="type_coin_first">Type a coin name first (e.g. bitcoin)</string>
+    <string name="trade_type">Trade type</string>
+    <string name="entry_price">Entry price</string>
+    <string name="exit_price">Exit price</string>
+    <string name="quantity">Quantity</string>
+    <string name="date_hint">Date (yyyy-MM-dd)</string>
+    <string name="strategy_label">Trading strategy</string>
+    <string name="emotion_label">How did you feel?</string>
+    <string name="notes_hint">Notes - why did you take this trade?</string>
+    <string name="pl_auto">Profit/loss is calculated automatically when you save.</string>
+    <string name="save_trade">Save Trade</string>
+    <string name="trade_saved">Trade saved! P/L: %1$s</string>
+    <string name="trade_saved_offline">Saved offline. It will sync when you reconnect.</string>
+    <string name="save_failed">Could not save trade</string>
+
+    <!-- History -->
+    <string name="filter_hint">Filter (long press a trade for details)</string>
+    <string name="no_trades">No trades to show</string>
+    <string name="close">Close</string>
+    <string name="delete">Delete</string>
+    <string name="trade_deleted">Trade deleted</string>
+    <string name="trade_details">Entry: %1$s\nExit: %2$s\nQuantity: %3$s\nStrategy: %4$s\nEmotion: %5$s\nNotes: %6$s</string>
+    <string name="pending_sync">Pending sync</string>
+
+    <!-- Journal and achievements -->
+    <string name="title_hint">Title</string>
+    <string name="journal_hint">What did you learn today?</string>
+    <string name="save_entry">Save Entry</string>
+    <string name="journal_fill">Please enter a title and some notes</string>
+    <string name="journal_saved">Journal entry saved</string>
+    <string name="total_points">%1$d points</string>
+    <string name="unlocked">Unlocked</string>
+    <string name="locked">Locked</string>
+
+    <!-- Settings and notifications -->
+    <string name="account">Account</string>
+    <string name="preferences">Preferences</string>
+    <string name="signed_in_as">Signed in as %1$s</string>
+    <string name="change_password">Change password</string>
+    <string name="reset_email_sent">Password reset email sent to %1$s</string>
+    <string name="reset_failed">Could not send reset email. Try again.</string>
+    <string name="google_account_note">You signed in with Google, so your password is managed by your Google account.</string>
+    <string name="language">Language</string>
+    <string name="currency">Price currency</string>
+    <string name="default_strategy">Default strategy</string>
+    <string name="notifications">Push notifications</string>
+    <string name="save_settings">Save Settings</string>
+    <string name="settings_saved">Settings saved</string>
+    <string name="sync_title">Trades synced</string>
+    <string name="sync_text">Your offline trades were uploaded.</string>
+    <string name="notif_channel_name">Tradify updates</string>
+
+    <string-array name="types_array">
+        <item>Long</item>
+        <item>Short</item>
+    </string-array>
+    <string-array name="strategies_array">
+        <item>Breakout</item>
+        <item>Trend Following</item>
+        <item>Scalping</item>
+        <item>Swing</item>
+        <item>Other</item>
+    </string-array>
+    <string-array name="emotions_array">
+        <item>Confident</item>
+        <item>Nervous</item>
+        <item>Excited</item>
+        <item>Frustrated</item>
+        <item>Neutral</item>
+    </string-array>
+    <string-array name="filters_array">
+        <item>All</item>
+        <item>Profitable</item>
+        <item>Losing</item>
+        <item>Long</item>
+        <item>Short</item>
+    </string-array>
+    <string-array name="badge_names">
+        <item>First Trade</item>
+        <item>10 Trades</item>
+        <item>25 Trades</item>
+        <item>First Journal Entry</item>
+        <item>5 Journal Entries</item>
+    </string-array>
 </resources>
